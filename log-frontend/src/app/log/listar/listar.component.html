@@ -1,0 +1,22 @@
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Data</th>
+            <th>IP</th>
+            <th>Request</th>
+            <th> <button (click)="addLog()" class="btn btn-info">Add Log</button></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let log of logs">
+            <td> {{ log.data }} </td>
+            <td> {{ log.ip }} </td>
+            <td> {{ log.request }} </td>
+            <td>
+                <button (click)="logDetails(log.id)" class="btn btn-secondary"> View</button>
+                <button (click)="updateLog(log.id)" class="btn btn-warning" style="margin-left: 10px"> Update</button>
+                <button (click)="deleteLog(log.id)" class="btn btn-danger" style="margin-left: 10px"> Delete</button>      
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -1,0 +1,38 @@
+<div class="col-md-6 offset-md-3">
+    <h4> Create Log </h4>
+    <form (ngSubmit) = "onSubmit()">
+    
+        <div class="form-group">
+            <label>Data</label>
+            <input type="text" class ="form-control" id = "data"
+                [(ngModel)] = "log.data" name = "data">
+        </div>
+    
+        <div class="form-group">
+            <label>IP</label>
+            <input type="text" class ="form-control" id = "ip"
+                [(ngModel)] = "log.ip" name = "ip">
+        </div>
+    
+        <div class="form-group">
+            <label>Request</label>
+            <input type="text" class ="form-control" id = "request"
+                [(ngModel)] = "log.request" name = "request">
+        </div>
+
+        <div class="form-group">
+            <label>Status</label>
+            <input type="text" class ="form-control" id = "emailId"
+                [(ngModel)] = "log.status" name = "status">
+        </div>
+
+        <div class="form-group">
+            <label>User Agent</label>
+            <input type="text" class ="form-control" id = "agent"
+                [(ngModel)] = "log.agent" name = "agent">
+        </div>
+    
+        <button class = "btn btn-success space-bet-el" type ="submit">Submit</button>
+    
+    </form>
+    </div> 
