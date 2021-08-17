@@ -1,19 +1,20 @@
 <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
   <ul class="navbar-nav">
     <li class="nav-item">
-      <a routerLink="list-log" routerLinkActive="active" class="nav-link">Log List</a>
+      <a routerLink="list-log" class="nav-link">Log List</a>
     </li>
     <li class="nav-item">
       <a routerLink="upload-log" class="nav-link">Upload Log</a>
     </li>
   </ul>
 </nav>
-<h1 class="text-center">{{ title }}</h1>
-<div class="container">
+<div class="container space-bet-el">
   <router-outlet></router-outlet>
 </div>
-<footer class="footer">
-  <div class="container">
-    <span>All Rights Reserved 2021 @EversonFx</span>
+
+<footer class="text-center text-lg-start bg-light text-muted ">
+  <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+    © 2021 Copyright:
+    <a class="text-reset fw-bold" href="#">Everson FL</a>
   </div>
 </footer>

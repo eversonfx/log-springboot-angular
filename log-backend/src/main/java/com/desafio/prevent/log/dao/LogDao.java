@@ -7,7 +7,10 @@ import org.springframework.util.ObjectUtils;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
+import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -49,8 +52,6 @@ public class LogDao {
 
         Log log = findById(id);
 
-        //EntityManager#remove() works only on entities which are managed in the current transaction/context
-        //You need to check if the entity is managed by EntityManager#contains() and if not, then make it managed it EntityManager#merge().
         entityManager.remove(entityManager.contains(log) ? log : entityManager.merge(log));
 
         entityManager.getTransaction().commit();
@@ -67,5 +68,42 @@ public class LogDao {
         }
         entityManager.getTransaction().commit();
         entityManager.close();
+    }
+
+    public BigInteger findPageInfo() {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        Query query = entityManager.createNativeQuery("SELECT COUNT(id) FROM logs_table a");
+        BigInteger count = (BigInteger) query.getSingleResult();
+        entityManager.close();
+        return count;
+    }
+
+    public List<Log> findInterval(Integer begin, Integer end) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        Query query = entityManager.createNativeQuery("SELECT a.id, a.data, a.ip, a.request, a.status,a.agent FROM logs_table a WHERE a.id BETWEEN ? AND ? ORDER BY a.id ASC");
+        query.setParameter(1, begin);
+        query.setParameter(2, end);
+        List<Object[]> rows = query.getResultList();
+
+        List<Log> logList = new ArrayList<>(rows.size());
+        for (Object[] row : rows) {
+            logList.add(new Log((int) row[0], (String) row[1], (String) row[2],
+                    (String) row[3], (String) row[4], (String) row[5]));
+        }
+
+        entityManager.close();
+        return logList;
+    }
+
+    public List<Log> search(String searchText) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        Query query = entityManager.createQuery(
+                "FROM Log WHERE ip LIKE :searchText order by ip,data asc"
+        ).setMaxResults(10000);
+        query.setParameter("searchText", "%" + searchText + "%");
+        List<Log> logList = query.getResultList();
+
+        entityManager.close();
+        return logList;
     }
 }

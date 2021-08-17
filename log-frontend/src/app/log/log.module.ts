@@ -14,7 +14,7 @@ import { ExibirComponent } from './exibir/exibir.component';
     AdicionarComponent,
     EditarComponent,
     UploadComponent,
-    ExibirComponent   
+    ExibirComponent  
   ],
   imports: [
     CommonModule,

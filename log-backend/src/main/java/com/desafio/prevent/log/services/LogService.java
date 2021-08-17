@@ -6,8 +6,8 @@ import com.desafio.prevent.log.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class LogService {
@@ -51,5 +51,18 @@ public class LogService {
         orLog.setAgent(newLog.getAgent());
 
         return orLog;
+    }
+
+    public BigInteger findPageInfo() {
+        BigInteger numReg = repo.findPageInfo();
+        return numReg;
+    }
+
+    public List<Log> findInterval(Integer begin, Integer end) {
+        return repo.findInterval(begin, end);
+    }
+
+    public List<Log> search(String searchText) {
+        return repo.search(searchText);
     }
 }

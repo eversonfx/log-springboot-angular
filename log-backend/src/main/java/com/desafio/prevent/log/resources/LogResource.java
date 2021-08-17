@@ -1,34 +1,62 @@
 package com.desafio.prevent.log.resources;
 
 import com.desafio.prevent.log.domain.Log;
+import com.desafio.prevent.log.dto.LogDTO;
+import com.desafio.prevent.log.resources.response.ResponseMessage;
+import com.desafio.prevent.log.services.FileService;
 import com.desafio.prevent.log.services.LogService;
+import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.math.BigInteger;
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping(value="/logs")
+@RequestMapping(value = "/logs")
 public class LogResource {
     @Autowired
     private LogService service;
 
-    @RequestMapping(value="/{id}", method= RequestMethod.GET)
+    private final FileService fileService;
+
+    @Autowired
+    public LogResource(FileService fileService) {
+        this.fileService = fileService;
+    }
+
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Log> find(@PathVariable Integer id) {
         Log obj = service.find(id);
         return ResponseEntity.ok().body(obj);
     }
 
-    @RequestMapping(method= RequestMethod.GET)
-    public ResponseEntity<List<Log>> findAll() {
-        List<Log> obj = service.findAll();
-        return ResponseEntity.ok().body(obj);
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<List<LogDTO>> findAll() {
+        List<Log> list = service.findAll();
+        List<LogDTO> listDto =
+                list.stream().map(obj -> new LogDTO(obj))
+                        .collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDto);
+    }
+
+    @RequestMapping(value = "/page-interval", method = RequestMethod.GET)
+    public ResponseEntity<List<LogDTO>> searchRecordsByPage(@RequestParam(value = "begin", defaultValue = "0") Integer begin,
+                                                            @RequestParam(value = "end", defaultValue = "0") Integer end) {
+        List<Log> list = service.findInterval(begin, end);
+        List<LogDTO> listDto =
+                list.stream().map(obj -> new LogDTO(obj))
+                        .collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDto);
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -52,5 +80,28 @@ public class LogResource {
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file) throws FileUploadException {
+        fileService.save(file);
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new ResponseMessage("Uploaded the file successfully: " + file.getOriginalFilename()));
+    }
+
+    @RequestMapping(value = "/pages-info", method = RequestMethod.GET)
+    public ResponseEntity<BigInteger> pageInfo() {
+        BigInteger numReg = service.findPageInfo();
+        return ResponseEntity.ok().body(numReg);
+    }
+
+    @RequestMapping(value = "/search-logs", method = RequestMethod.GET)
+    public ResponseEntity<List<LogDTO>> search(@RequestParam(value = "search") String searchText) {
+        List<Log> list = service.search(searchText);
+        List<LogDTO> listDto =
+                list.stream().map(obj -> new LogDTO(obj))
+                        .collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDto);
     }
 }
