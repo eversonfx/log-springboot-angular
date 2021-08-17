@@ -14,16 +14,14 @@ public class LogService {
     @Autowired
     private LogDao repo;
 
+    public LogService() {
+    }
+
     public Log find(Integer id) {
         Log log = repo.findById(id);
         if (log != null) return log;
         else throw new ObjectNotFoundException("Objeto não encontrado! Id:" + id + ", Tipo: " + Log.class.getName());
     }
-
-    public List<Log> findAll() {
-        return repo.findAll();
-    }
-
 
     public Log insert(Log obj) {
         obj.setId(null);

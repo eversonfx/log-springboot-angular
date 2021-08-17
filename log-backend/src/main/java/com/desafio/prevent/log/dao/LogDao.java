@@ -39,13 +39,6 @@ public class LogDao {
         return log;
     }
 
-    public List<Log> findAll() {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        List<Log> logList = entityManager.createQuery("from Log", Log.class).getResultList();
-        entityManager.close();
-        return logList;
-    }
-
     public void delete(int id) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();

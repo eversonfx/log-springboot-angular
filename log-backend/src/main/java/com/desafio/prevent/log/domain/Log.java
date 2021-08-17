@@ -27,6 +27,14 @@ public class Log implements Serializable {
         this.agent = agent;
     }
 
+    public Log(String data, String ip, String request, String status, String agent) {
+        this.data = data;
+        this.ip = ip;
+        this.request = request;
+        this.status = status;
+        this.agent = agent;
+    }
+
     public Integer getId() {
         return id;
     }

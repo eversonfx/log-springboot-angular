@@ -7,8 +7,11 @@ import com.desafio.prevent.log.services.FileService;
 import com.desafio.prevent.log.services.LogService;
 import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -27,6 +30,7 @@ public class LogResource {
     private LogService service;
 
     private final FileService fileService;
+    private HttpHeaders headers;
 
     @Autowired
     public LogResource(FileService fileService) {
@@ -34,19 +38,12 @@ public class LogResource {
     }
 
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<Log> find(@PathVariable Integer id) {
         Log obj = service.find(id);
-        return ResponseEntity.ok().body(obj);
-    }
-
-    @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<LogDTO>> findAll() {
-        List<Log> list = service.findAll();
-        List<LogDTO> listDto =
-                list.stream().map(obj -> new LogDTO(obj))
-                        .collect(Collectors.toList());
-        return ResponseEntity.ok().body(listDto);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json");
+        return ResponseEntity.ok().headers(headers).body(obj);
     }
 
     @RequestMapping(value = "/page-interval", method = RequestMethod.GET)
@@ -79,7 +76,7 @@ public class LogResource {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
         service.delete(id);
-        return ResponseEntity.noContent().build();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
@@ -104,4 +101,5 @@ public class LogResource {
                         .collect(Collectors.toList());
         return ResponseEntity.ok().body(listDto);
     }
+
 }
