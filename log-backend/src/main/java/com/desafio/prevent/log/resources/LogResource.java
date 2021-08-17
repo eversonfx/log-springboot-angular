@@ -2,6 +2,7 @@ package com.desafio.prevent.log.resources;
 
 import com.desafio.prevent.log.domain.Log;
 import com.desafio.prevent.log.dto.LogDTO;
+import com.desafio.prevent.log.dto.LogReportDTO;
 import com.desafio.prevent.log.resources.response.ResponseMessage;
 import com.desafio.prevent.log.services.FileService;
 import com.desafio.prevent.log.services.LogService;
@@ -100,6 +101,12 @@ public class LogResource {
                 list.stream().map(obj -> new LogDTO(obj))
                         .collect(Collectors.toList());
         return ResponseEntity.ok().body(listDto);
+    }
+
+    @RequestMapping(value = "/report", method = RequestMethod.GET)
+    public ResponseEntity<List<LogReportDTO>> searchByAggregation(@RequestParam(value = "option") String option) {
+        List<LogReportDTO> list = service.searchByAggregation(option);
+        return ResponseEntity.ok().body(list);
     }
 
 }

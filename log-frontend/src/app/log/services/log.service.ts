@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { Log } from '../model';
+import { LogReport } from '../model/logReport';
 
 @Injectable({
   providedIn: 'root'
@@ -49,4 +50,9 @@ export class LogService {
     return this.httpClient.get<number>(`${this.baseURL}/pages-info`);
   }
 
+  groupBySearch(option: string): Observable<LogReport[]> {
+    let params = new HttpParams();
+    params = params.append('option', option);
+    return this.httpClient.get<LogReport[]>(`${this.baseURL}/report`, { params: params });
+  }
 }

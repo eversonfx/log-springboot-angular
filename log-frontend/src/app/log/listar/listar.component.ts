@@ -29,7 +29,6 @@ export class ListarComponent implements OnInit {
 
   onSearch() {
     this.logService.searchLogs(this.searchText).subscribe(data => {
-      this.searchText = '';
       this.logs = data;
       this.totalNumPages = 1;
     });

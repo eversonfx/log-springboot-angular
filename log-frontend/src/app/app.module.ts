@@ -9,7 +9,7 @@ import { LogModule } from './log/log.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,

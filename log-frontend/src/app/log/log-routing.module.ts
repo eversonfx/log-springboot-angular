@@ -4,6 +4,7 @@ import { ListarComponent } from './listar';
 import { EditarComponent } from './editar';
 import { UploadComponent } from './upload';
 import { ExibirComponent } from './exibir';
+import { RelatorioComponent } from './relatorio';
  
 export const LogRoutes: Routes = [
 	{ 
@@ -26,4 +27,8 @@ export const LogRoutes: Routes = [
 		path:'upload-log',
 		component: UploadComponent  
 	},
+	{
+		path:'relatorio-log',
+		component: RelatorioComponent  
+	}
 ];
