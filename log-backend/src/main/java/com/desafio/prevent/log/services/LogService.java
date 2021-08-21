@@ -39,8 +39,6 @@ public class LogService {
         repo.update(log);
     }
 
-
-
     public BigInteger findPageInfo() {
         BigInteger numReg = repo.findPageInfo();
         return numReg;

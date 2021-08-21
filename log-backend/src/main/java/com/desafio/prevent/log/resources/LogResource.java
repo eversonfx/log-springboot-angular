@@ -31,7 +31,6 @@ public class LogResource {
     private LogService service;
 
     private final FileService fileService;
-    private HttpHeaders headers;
 
     @Autowired
     public LogResource(FileService fileService) {

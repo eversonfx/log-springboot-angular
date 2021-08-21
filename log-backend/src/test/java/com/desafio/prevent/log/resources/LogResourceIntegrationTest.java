@@ -2,36 +2,17 @@ package com.desafio.prevent.log.resources;
 
 import com.desafio.prevent.log.dao.LogDao;
 import com.desafio.prevent.log.domain.Log;
-import com.desafio.prevent.log.services.FileService;
 import com.desafio.prevent.log.services.LogService;
-import org.apache.catalina.connector.Response;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Matchers;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.*;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.RequestBuilder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -40,7 +21,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value = LogResource.class)
-class LogResourceTest {
+class LogResourceIntegrationTest {
     private LogResource logResource;
 
     @Autowired
@@ -60,7 +41,7 @@ class LogResourceTest {
     }
 
     @Test
-    void checkInsert() throws Exception {
+    void checkFind() throws Exception {
         mockMvc.perform(
                 get("/logs/1")
                         .contentType(MediaType.APPLICATION_JSON)
