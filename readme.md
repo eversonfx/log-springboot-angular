@@ -1,4 +1,4 @@
-### SpringBoot + Angular - Logs Project
+### Logs Project - SpringBoot + Angular
 
 ##### :open_book: About
 
