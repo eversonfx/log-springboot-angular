@@ -17,9 +17,7 @@ Spring and Angular project for managing and uploading log files with PostgreSQL 
 - The configuration file for PostgreSQL is located in "src/main/resources/META-INF/persistence.xml".
 
 ![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white)
-
 ![Angular](https://img.shields.io/badge/angular-%23DD0031.svg?style=for-the-badge&logo=angular&logoColor=white)
-
 ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
 
 
