@@ -1,6 +1,28 @@
-<h3><strong>Projeto SpringBoot + Angular</strong></h3>
-<p><span style="color: #0000ff;"><strong>Desafio t&eacute;cnico composto por CRUD, Upload e relat&oacute;rio de logs feitos.</strong></span></p>
-<p><span style="color: #0000ff;"><strong>O nome do banco de dados que deve ser criado &eacute; "<span style="color: #339966;">logdb</span>". O arquivo de configura&ccedil;&atilde;o para o PostgreSQL est&aacute; localizado em <span style="color: #339966;">src/main/resources/META-INF/persistence.xml</span></strong></span></p>
-<p><span style="color: #0000ff;"><strong><span style="color: #ff0000;">Spring Boot : Ver. 2.5</span></strong></span></p>
-<p><span style="color: #0000ff;"><strong><span style="color: #ff0000;">Angular: Ver. 12</span></strong></span></p>
-<p>&nbsp;</p>
+### Projeto SpringBoot + Angular
+
+##### :open_book: About
+
+Spring and Angular project for managing and uploading log files with PostgreSQL database without using SpringData
+
+##### ⚙️ Technologies & Tool
+
+- SpringBoot v2.5.3
+- Angular CLI: 12.1.4
+- PostgreSQL: 13.4
+
+##### :bookmark_tabs: Instructions
+
+- The name of the database to be created is "logdb";
+
+- The configuration file for PostgreSQL is located in "src/main/resources/META-INF/persistence.xml".
+
+![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white)
+
+![Angular](https://img.shields.io/badge/angular-%23DD0031.svg?style=for-the-badge&logo=angular&logoColor=white)
+
+![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+
+
+
+
+
